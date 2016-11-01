@@ -19,7 +19,7 @@
 % \author[4]{}
 % \author[5]{}
 % affiliation
-\affil[1]{School of Education, Durham University, UK} % Need to check this.
+\affil[1]{School of Education, Durham University, UK}
 \affil[2]{Department of Computing \& Information Systems, Cardiff
   Metropolitan University, UK}
 % \affil[3]{}
@@ -48,34 +48,26 @@ The execution of the trial required several novel innovations to overcome shortc
 With data collected from the successful completion of the trial a thorough approach has now been outlined for its analysis.
 \end{abstract}
 
-% Using JORS-friendly structure
 \section{Introduction}
 
-Large touch screen interfaces offer many opportunities for collaboration between co-located users. % refs
-Not just when the interface is shared but when two or more co-located interfaces are networked together to allow for the transfer of materials between them. % refs
-There are many benefits to collaborating with configurations of interfaces like this, especially in education settings. % refs
-In the past there have been several studies investigating the impact of these configuration on KS2 and 3 classrooms. % More on education + collaborative education impact of touchscreens?
+Large touch screen interfaces offer many opportunities for collaboration between co-located learners~\cite{harris:2009,kharrufa:2013}.
+Not just when the interface is shared but when two or more co-located interfaces are networked together to allow for the transfer of materials between them~\cite{kreitmayer:2013,mercier:2013}.
+In the past there have been several studies investigating the impact of these configuration on UK Key Stage 2 and 3 classrooms. 
 
-Previous studies have been concerned with how the use of multiple large touch screen interfaces impacts on collaborative education in single environments, i.e. Individual classrooms. % refs
+% More on education + collaborative education impact of touchscreens?
+
+Previous studies have been concerned with how the use of multiple large touch screen interfaces impacts on collaborative education in single environments, i.e. Individual classrooms~\cite{mohammed:2012,kreitmayer:2013,mercier:2015}.
 However, with the opportunities afforded by large networks, such as the internet, for collaboration in education across multiple locations [refs], the limitations of co-located interfaces become much more apparent.
-One of the key advantages of collaborative education across multiple locations is that it allows students with a potentially much wider range of backgrounds and skills to work together. % refs
+One of the key advantages of collaborative education across multiple locations is that it allows students with a potentially much wider range of backgrounds and skills to work together. % Education-Theory References needed to back this up.
 
-This work details a study that was designed around investigating the impact of applying the use of large touch screen interfaces to multiple separate locations, specifically KS1/2/3? classrooms, on collaborate education. % Which key stage were the participants?
+This work details a study that was designed around investigating the impact of applying the use of large touch screen interfaces to multiple separate locations, specifically UK Key Stage 2 classrooms, on collaborative education.
 
-The use of a touch screen interface offers the opportunity for many novel gestures to intuitively instigate specific actions. % refs
+The use of a touch screen interface offers the opportunity for many novel gestures to intuitively instigate specific actions which can be beneficial for youunger users~\cite{kim:2007,wu:2003,rick:2009}.
 One such gesture is the flick motion~\cite{reetz-et-al:2006} which is typically used for the movement of materials about an environment with minimal effort.
 This gesture benefits collaboration greatly, allowing users to transfer materials to each other without needing to enter each other's interaction space.
  
 It is possible that the flick gesture could be used, not only for passing content between users on the same interface, but for passing materials to users on remote interfaces.
 This study builds on this possibility and applies it to the transferral of materials between non-co-located locations.
-
-\subsection{Theoretical groundings}
-
-% Todo
-
-\subsection{Literature}
-
-% Todo
 
 
 \section{SynergyNet}
@@ -92,7 +84,7 @@ The framework supports many features beyond its ability to be used with multiple
 One such feature is its ability to support communication between multiple interfaces via a network connection.
 This use of networked interfaces allows media-based content to be easily shared between multiple users.
 The framework supports several different methods to transfer materials between instances of its apps.
-In apps used in previous studies, control over the transfer of materials has been given to the teacher who uses a separate interface to instigate the transferral of content. % refs
+In apps used in previous studies, control over the transfer of materials has been given to the teacher who uses a separate interface to instigate the transferral of content~\cite{alagha-et-al:2010,mercier:2016}.
 
 % Education impact of SynergyNet in the past.
 
@@ -127,9 +119,9 @@ The feature has been present in The SynergyNet framework since its earliest vers
 While some apps that entail the transfer of materials between interfaces do support the gesture, most encourage users to use other, more traditional, methods of sharing contents (such as placing items in shared areas or through using a context menu).
 
 Some previous studies have been carried out investigating the HCI-aspects of the network flick gesture [papers in progress] but none of these have entailed its use in a classroom environment.
-Typically, classroom-based studies with SynergyNet have utilised a remote teacher interface to orchestrate the transferal of content. % refs
+Typically, classroom-based studies with SynergyNet have utilised a remote teacher interface to orchestrate the transferal of content~\cite{joycegibbons:2016}.
 
-Though the gesture is often used in the warm-up and cool-down sessions (to get participants used to interacting through the touch-screens and as a form of reward respectively) during previous studies with KS 1 and 2 students and has always been well received, there has been little data collected on its use by pupils as part of classroom activities.
+Though the gesture is often used in the warm-up and cool-down sessions (to get participants used to interacting through the touch-screens and as a form of reward respectively) during previous studies with UK Key Stage 1 and 2 students and has always been well received, there has been little data collected on its use by pupils as part of classroom activities.
 Where it has been used, the network flick has always been performed to transfer content between two co-located interfaces previously.
 
 \subsection{Co-Location}
@@ -144,8 +136,6 @@ Many of the interfaces presume that users will be together in the same environme
 This has a large impact on the design of visual elements, such as menus.
 For example, the menu used by teachers to transfer content in previous studies assumes that the teacher is able to see pupil's interfaces so that they can choose which group's work they can display to the class.
 
-% Could add a bit here about the use of the Kinect and table selection through pointing in the last SynergyNet studies but maybe best not to muddy the waters.
-
 The network flick gesture makes a large presumption about its use which results from its intention for use between co-located interfaces.
 This is that users will know where their target interface is in relation to them.
 However, this knowledge can be made available to users even when their target interface is in a remote location.
@@ -159,7 +149,8 @@ The use of single environments in the past meant that the framework was always d
 As there was no need previously for the framework to be able to work across anything beyond a LAN many of the features are not capable of functioning across the internet.
 
 Despite the intention of being used solely across LANs in the past a large amount of the framework's networking capability was built in such a way that it could function across the internet.
-The use of third party libraries such as OpenFire * and Hazelcast * mean that the framework can use several different protocols across wider networks for communicating messages to each other. %refs
+The use of third party libraries such as OpenFire~\cite{igniterealtime:2016} and Hazelcast~\cite{hazelcast:2016} mean that the framework can use several different protocols across wider networks for communicating messages to each other.
+
 
 However, there are some network features that are limited to LAN.
 An example of this is how media content is transferred between instances of the framework.
@@ -168,28 +159,23 @@ This was beneficial in the past as it was simple to implement and gave teachers 
 The secure use of a shared network location across a wider network, such as the internet, is inadvisable without precautions due to the security and speed of such a technique.
 It was therefore a requirement that some development work took place prior to this work's study taking place to allow the framework, or at least the app used, to function over the internet as the two locations used would not be able to share a typical LAN.
 
-% need to have a focus on the software...
+\section{Pilot Study Design}
 
-
-\section{Pilot Study}
-
-For the study, two groups of KS1 students at separate locations were encouraged to work together on a classroom activity. % Need to double check the key stage of the students.
+For the study, two groups of UK Key Stage 2 students (9 - 10 years old) at separate locations were encouraged to work together on a classroom activity.
 One group were situated in a school in the North East of England and the other in a school in South Wales.
 Each group was allocated a large touch-screen interface to work together on the activity with.
 Touch-screen table-top interfaces (Samsung SUR40s) were used.
 The horizontal nature of the interfaces was chosen to allow multiple students to work around the devices.
 The two table-top interfaces were networked together to share content between them, specifically through the network flick gesture.
 To allow the teams to communicate and to give them a direction to focus their flick gestures towards, a tablet was positioned by the tables along one side at both locations.
-This tablet used video-conference software (i.e.
-Skype) to allow the teams to see each other.
+This tablet used video-conference software (i.e. Skype) to allow the teams to see each other.
 The tables were configured so that flicking items towards the tablet screen would transfer them to the remote table.
 This was achieved by configuring the tables so that they were virtually positioned next to each other (with the sides on which the tablets were placed being parallel to each other) when in reality they were on opposite sides of the country.
 This meant each table considered the other to be co-located.
 With students passing items towards their `window' to the other team, the metaphor of physically pushing items towards another interfaces was maintained.
 
 Virtually positioning the tables side-by-side also meant that the entire edge of the tables with the tablet on (one of the longer edges of the widescreen aspect ratio interfaces) could be used as the target for network flicks.
-If the two tables were configured to use their real-life locations in relation to each other, the size of the boundary where a network flick could be trigged (i.e.
-that points to the remote table) would be less than a pixel at the distance between the two locations.
+If the two tables were configured to use their real-life locations in relation to each other, the size of the boundary where a network flick could be trigged (i.e. that points to the remote table) would be less than a pixel at the distance between the two locations.
 
 Another benefit to this configuration of the tables being placed virtual side-by-side relates to the behaviour of the transfer.
 Normally a realistic effect is employed where the time taken for items to transfer is calculated by the time it would take them to travel the gap between the interfaces at the speed of the item before it left its source interface (ignoring deceleration).
@@ -202,14 +188,19 @@ Other changes to make the framework ready for the study required some new develo
 \subsection{Flick Mysteries}
 
 It was decided that the task to be collaborated on in the study was Mysteries; a classroom activity where students use a selection of clues, such as snippets of text and images, to solve a problem or come to a conclusion about an open question.
-This task has been used in several previous studies using SynergyNet. %refs
+This task has been used in several previous studies using SynergyNet~\cite{mercier:2013,mercier:2014,mercier:2015}.
 
-% Screenshot of app here.
+\begin{figure}[h]
+ \centering
+   \includegraphics[width=0.75\textwidth]{figures/flickmysteryexample.png}
+   \caption{The SynergyNet mysteries app with task content used in the study.}
+   \label{fig:FlickMysteryExample}
+\end{figure}
 
 Though mysteries is an existing task supported by several apps for the SynergyNet framework, none of them utilise the network flick gesture.
-This required the creation of a new app which would manage the loading of the materials in a dynamic way (i.e.
-Text snippets from a simple XML file and media from any other files in a folder - though video and audio clips are supported by the app only images were used in the study alongside the text snippets to reduce potential confounding factors) and allow them to be transferred through the network gesture.
+This required the creation of a new app which would manage the loading of the materials in a dynamic way (i.e. Text snippets from a simple XML file and media from any other files in a folder - though video and audio clips are supported by the app only images were used in the study alongside the text snippets to reduce potential confounding factors) and allow them to be transferred through the network gesture.
 The dynamic content system allowed for the app to be easily configured so that each site would have a different selection of clues for each mysteries task, forcing them to share content with the students at the remote location.
+Figure~\ref{fig:FlickMysteryExample} shows the app built for the study with content relevant to the task dynamically generated from an XML file ready for transferal through the network flick mechanism.
 
 \subsection{Technical Challenges}
 
@@ -223,7 +214,7 @@ This course of action was decided upon as supporting direct communication across
 
 It became apparent after some investigation that the best way to emulate a LAN would be to utilise a VPN as this would allow many of the features of a local network that SynergyNet relies on (such as shared folders) to be easily emulated whilst still communicating across the internet.
 
-Though many VPN solutions are available, Zero-Tier was selected. %ref
+Though many VPN solutions are available, Zero-Tier was selected~\cite{zerotier:2016}.
 This VPN solution is not a typical VPN but fulfilled all the criteria needed to support the majority of SynergyNet’s networking features over the internet.
 
 As only a small number of machines required to be connected to the same network in the study (i.e.
@@ -239,7 +230,7 @@ To accommodate for the fact this this study was to be carried out across a VPN, 
 This change meant that SynergyNet could no longer automatically detect other instances.
 At least one instance would need to be informed of the IP address of the other instance.
 To support this a user interface was developed which allowed for the user to allocate participating device’s IPs on the network.
-This update was initially a change at the app level but has since been integrated into the framework so that all apps on SynergyNet can work across VPNs easier. % ref DOI: 10.5281/zenodo.54562
+This update was initially a change at the app level but has since been integrated into the framework so that all apps on the latest version of SynergyNet~\cite{hatch:2011} can work across VPNs easier.
 
 \subsubsection{Firewalls}
 
@@ -271,7 +262,7 @@ A 4G connection may not be as secure as using the school network but data to and
 The video conferencing tablets used the school networks which would have provided an adequately secure connection.
 
 
-\section{Resulting Data} % Needs way better name
+\section{Pilot Study Outcomes} 
 
  % Stats on data collected; 4 sessions, avg 20 mins each, etc.
  
@@ -295,7 +286,7 @@ While qualitative information can be collected from this videos (and study orche
    \label{fig:SynergyviewExample}
 \end{figure}
 
-SynergyView is a time-line analysis tool where multiple videos can be annotated together over time with each annotation being tagged with a wealth of information (such as the subjects in the video they relate to or a type of recurring event seen in the trial). % refs DOI: 10.5281/zenodo.54566
+SynergyView~\cite{kyaw:2010} is a time-line analysis tool where multiple videos can be annotated together over time with each annotation being tagged with a wealth of information (such as the subjects in the video they relate to or a type of recurring event seen in the trial).
 Information on these annotations, such as their frequency, total times and average times can then be exported in a crosstab format for analysis.
 The intention is to use SynergyView to annotate the videos from both groups in the study together (once synced).
 As multiple sessions took place during the study where different groups of students participated there will be several sets of videos to annotate together.
@@ -315,11 +306,10 @@ This will allow for the tables used in this study to be re-deployed anywhere whe
 This will enable for further studies using the framework and the tables used in this study at separate sites.
 These further studies may involve following up any discoveries uncovered as part of this study’s data-analysis.
 
-\subsection{Summary} % Maybe not such an obvious title
+\subsection{Conclusions}
 
 % Summary of Innovations and theoretical contributions
 
-% BibTeX
 \bibliographystyle{ieeetr}
 \bibliography{jors2016}
 
