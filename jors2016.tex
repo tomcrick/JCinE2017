@@ -42,10 +42,10 @@
 
 
 \begin{abstract}
-This work details a study in the use of large touch-screen interfaces to facilitate collaborative education between students at separate locations, specifically the North East of England and South Wales.
-An app for supporting a collaborative classroom activity was created for this study which allowed students at either location to transfer materials to the students at the other locations via a `flick' gesture.
-The execution of the trial required several novel innovations to overcome shortcomings with the app's supporting framework and the technologies used.
-With data collected from the successful completion of the trial a thorough approach has now been outlined for its analysis.
+This is a case-study concerning the technical implications of a research tral in which large touch-screen interfaces were used to facilitate collaborative education between students at separate locations.
+An app for supporting a collaborative classroom activity was created for the trial which allowed students at either location to transfer materials to the students at the other locations via a `flick' gesture.
+The execution of the trial required several novel innovations to overcome shortcomings with the app's supporting framework and the technologies used which this case-study focuses on.
+The case-study also details how a thorough and defensible approach was taken to the collection and analysis of data relating to the trial.
 \end{abstract}
 
 \section{Introduction}
@@ -60,19 +60,23 @@ Previous studies have been concerned with how the use of multiple large touch sc
 However, with the opportunities afforded by large networks, such as the internet, for collaboration in education across multiple locations [refs], the limitations of co-located interfaces become much more apparent.
 One of the key advantages of collaborative education across multiple locations is that it allows students with a potentially much wider range of backgrounds and skills to work together. % Education-Theory References needed to back this up.
 
-This work details a study that was designed around investigating the impact of applying the use of large touch screen interfaces to multiple separate locations, specifically UK Key Stage 2 classrooms, on collaborative education.
+This work details the work done to support a trial that was designed around investigating the impact of applying the use of large touch screen interfaces to multiple separate locations, specifically UK Key Stage 2 classrooms, on collaborative education.
 
 The use of a touch screen interface offers the opportunity for many novel gestures to intuitively instigate specific actions which can be beneficial for youunger users~\cite{kim:2007,wu:2003,rick:2009}.
 One such gesture is the flick motion~\cite{reetz-et-al:2006} which is typically used for the movement of materials about an environment with minimal effort.
 This gesture benefits collaboration greatly, allowing users to transfer materials to each other without needing to enter each other's interaction space.
  
 It is possible that the flick gesture could be used, not only for passing content between users on the same interface, but for passing materials to users on remote interfaces.
-This study builds on this possibility and applies it to the transferral of materials between non-co-located locations.
+The trial built on this possibility and applied it to the transferral of materials between non-co-located locations.
+
+This paper presents a case-study of the technical aspects of implementing the research trial.
+The case-study examines how technology was used to meet the trial's design and focuses the technical challenges faced and overcome.
+The case-study also details how technology was used to manage the data resulting from the trial.
 
 
 \section{SynergyNet}
 
-It was decided that the SynergyNet~\cite{alagha-et-al:2010,higgins-et-al:2011} framework would be used as part of this study as it is built specifically for supporting applications intended to be used in education.
+It was decided that the SynergyNet~\cite{alagha-et-al:2010,higgins-et-al:2011} framework would be used as part of the trial as it is built specifically for supporting applications intended to be used in education.
 SynergyNet allows for applications (apps) built with the framework to apply gesture listeners to any content items they contain.
 This has the result of allowing any content item supported by the framework to be moved and manipulated by users through common multi-touch gestures.
 
@@ -139,7 +143,7 @@ For example, the menu used by teachers to transfer content in previous studies a
 The network flick gesture makes a large presumption about its use which results from its intention for use between co-located interfaces.
 This is that users will know where their target interface is in relation to them.
 However, this knowledge can be made available to users even when their target interface is in a remote location.
-The implications of not directly seeing the target interface when performing a network flick gesture are one of the focuses of this study.
+The implications of not directly seeing the target interface when performing a network flick gesture are one of the focuses of the trial.
 
 \subsection{Other Technical Considerations}
 
@@ -151,17 +155,17 @@ As there was no need previously for the framework to be able to work across anyt
 Despite the intention of being used solely across LANs in the past a large amount of the framework's networking capability was built in such a way that it could function across the internet.
 The use of third party libraries such as OpenFire~\cite{igniterealtime:2016} and Hazelcast~\cite{hazelcast:2016} mean that the framework can use several different protocols across wider networks for communicating messages to each other.
 
-
 However, there are some network features that are limited to LAN.
 An example of this is how media content is transferred between instances of the framework.
 The framework uses a shared network location as a form of cache.
-This was beneficial in the past as it was simple to implement and gave teachers a single location to collect the files used in a study session from for use in future lessons.
+This was beneficial in the past as it was simple to implement and gave teachers a single location to collect the files used in a lesson for use in future lessons.
 The secure use of a shared network location across a wider network, such as the internet, is inadvisable without precautions due to the security and speed of such a technique.
-It was therefore a requirement that some development work took place prior to this work's study taking place to allow the framework, or at least the app used, to function over the internet as the two locations used would not be able to share a typical LAN.
+It was therefore a requirement that some development work took place prior to the trial taking place to allow the framework, or at least the app used, to function over the internet as the two locations used would not be able to share a typical LAN.
 
-\section{Pilot Study Design}
 
-For the study, two groups of UK Key Stage 2 students (9 - 10 years old) at separate locations were encouraged to work together on a classroom activity.
+\section{Trial Design}
+
+For the trial, two groups of UK Key Stage 2 students (9 - 10 years old) at separate locations were encouraged to work together on a classroom activity.
 One group were situated in a school in the North East of England and the other in a school in South Wales.
 Each group was allocated a large touch-screen interface to work together on the activity with.
 Touch-screen table-top interfaces (Samsung SUR40s) were used.
@@ -180,52 +184,54 @@ If the two tables were configured to use their real-life locations in relation t
 Another benefit to this configuration of the tables being placed virtual side-by-side relates to the behaviour of the transfer.
 Normally a realistic effect is employed where the time taken for items to transfer is calculated by the time it would take them to travel the gap between the interfaces at the speed of the item before it left its source interface (ignoring deceleration).
 This is a useful behaviour for co-located interfaces as it bolsters the metaphor of real objects being pushed around the environment.
-However, this behaviour would not be suitable with the interfaces using their real world locations in this study as it would take a long time (likely longer than the study sessions, even with the fastest flick the interfaces are capable of identifying).
+However, this behaviour would not be suitable with the interfaces using their real world locations in the trial as it would take a long time (likely longer than the trial sessions, even with the fastest flick the interfaces are capable of identifying).
 With the virtual distance between the tables set to be as small as possible the flick behaviour had the effect of items travelling the distance from one interface to the other via the `window'.
 The positioning of the tables was set through configuration.
-Other changes to make the framework ready for the study required some new developments.
+Other changes to make the framework ready for the trial required some new developments.
 
 \subsection{Flick Mysteries}
 
-It was decided that the task to be collaborated on in the study was Mysteries; a classroom activity where students use a selection of clues, such as snippets of text and images, to solve a problem or come to a conclusion about an open question.
+It was decided that the task to be collaborated on in the trial was Mysteries; a classroom activity where students use a selection of clues, such as snippets of text and images, to solve a problem or come to a conclusion about an open question.
 This task has been used in several previous studies using SynergyNet~\cite{mercier:2013,mercier:2014,mercier:2015}.
 
 \begin{figure}[h]
  \centering
    \includegraphics[width=0.75\textwidth]{figures/flickmysteryexample.png}
-   \caption{The SynergyNet mysteries app with task content used in the study.}
+   \caption{The SynergyNet mysteries app with task content used in the trial.}
    \label{fig:FlickMysteryExample}
 \end{figure}
 
 Though mysteries is an existing task supported by several apps for the SynergyNet framework, none of them utilise the network flick gesture.
-This required the creation of a new app which would manage the loading of the materials in a dynamic way (i.e. Text snippets from a simple XML file and media from any other files in a folder - though video and audio clips are supported by the app only images were used in the study alongside the text snippets to reduce potential confounding factors) and allow them to be transferred through the network gesture.
+This required the creation of a new app which would manage the loading of the materials in a dynamic way (i.e. Text snippets from a simple XML file and media from any other files in a folder - though video and audio clips are supported by the app only images were used in the trial alongside the text snippets to reduce potential confounding factors) and allow them to be transferred through the network gesture.
 The dynamic content system allowed for the app to be easily configured so that each site would have a different selection of clues for each mysteries task, forcing them to share content with the students at the remote location.
-Figure~\ref{fig:FlickMysteryExample} shows the app built for the study with content relevant to the task dynamically generated from an XML file ready for transferal through the network flick mechanism.
+Figure~\ref{fig:FlickMysteryExample} shows the app built for the trial with content relevant to the task dynamically generated from an XML file ready for transferal through the network flick mechanism.
 
 \subsection{Technical Challenges}
 
-% Several challenges encountered and overcome in the short lead in to this study...
+It was decided that the trial should take place near to the end of the academic year to cause as little disruption to the teaching schedule as possible.
+The trial was designed close to the end of the summer term leaving little time for set up.
+The design of the trial was built on previous SynergyNet studies which meant that a lot of the preperation was already in place (i.e. the hardware, the supporting software framework and the tasks to be carried out).
+However, previous SynergyNet studies all took place in a single classroom environment, the trial's use of multiple locations meant that there were several new challenges in the set up to overcome during this short lead in time.
 
 \subsubsection{Virtual Private Networks}
 
 As many of SynergyNet’s networking features, including the network flick gesture, are dependent on the devices running instances of the framework being on a local network it became apparent that the most time-effective approach would be to emulate a local area network across a wider network (i.e. the internet).
 
-This course of action was decided upon as supporting direct communication across the internet would have required several of the framework’s features to be totally redeveloped which was not feasible in the time-frame of the study (imposed by the upcoming period near the end of the academic year where classes would have the availability to participate).
+This course of action was decided upon as supporting direct communication across the internet would have required several of the framework’s features to be totally redeveloped which was not feasible in the time-frame of the trial (imposed by the upcoming period near the end of the academic year where classes would have the availability to participate).
 
 It became apparent after some investigation that the best way to emulate a LAN would be to utilise a VPN as this would allow many of the features of a local network that SynergyNet relies on (such as shared folders) to be easily emulated whilst still communicating across the internet.
 
 Though many VPN solutions are available, Zero-Tier was selected~\cite{zerotier:2016}.
 This VPN solution is not a typical VPN but fulfilled all the criteria needed to support the majority of SynergyNet’s networking features over the internet.
 
-As only a small number of machines required to be connected to the same network in the study (i.e.
-two; one touch-screen table-top interface for each site – the tablets used in the study for the video conferencing did not need to be on the same network as the table-top interfaces and could just function as-is over the internet) investing time and money in any more feature-rich VPNs would have been counter-productive.
-Though Zero-Tier may not be as secure as other VPN options the study did not involve any data being transmitted that required being kept private so this was not a concern.
+As only a small number of machines required to be connected to the same network in the trial (i.e. two; one touch-screen table-top interface for each site – the tablets used in the trial for the video conferencing did not need to be on the same network as the table-top interfaces and could just function as-is over the internet) investing time and money in any more feature-rich VPNs would have been counter-productive.
+Though Zero-Tier may not be as secure as other VPN options the trial did not involve any data being transmitted that required being kept private so this was not a concern.
 
 \subsubsection{Multi-casting}
 
 SynergyNet up until now had used multicast service discovery as a method of finding other running instances of the framework on a network.
 However, many VPNs do not support the User Datagram Protocol (UDP) that the form of multicasting used by SynergyNet employs.
-To accommodate for the fact this this study was to be carried out across a VPN, the framework was modified to work purely through the more widely supported Transmission Control Protocol (TCP).
+To accommodate for the fact this the trial was to be carried out across a VPN, the framework was modified to work purely through the more widely supported Transmission Control Protocol (TCP).
 
 This change meant that SynergyNet could no longer automatically detect other instances.
 At least one instance would need to be informed of the IP address of the other instance.
@@ -234,17 +240,16 @@ This update was initially a change at the app level but has since been integrate
 
 \subsubsection{Firewalls}
 
-It was originally intended that all devices used in the study could be connected to the internet via the school’s networks (both the tablets and table-top interfaces are capable of using wireless connections).
-However, during preparation for the study it was discovered that the firewalls at both of the schools were blocking the traffic relating to Zero-Tier.
-The use of the Zero-Tier VPN had been tested in environments with strict firewall policies (i.e.
-University networks) and had operated as expected.
+It was originally intended that all devices used in the trial could be connected to the internet via the schools' networks (both the tablets and table-top interfaces are capable of using wireless connections).
+However, during preparation for the trial it was discovered that the firewalls at both of the schools were blocking the traffic relating to Zero-Tier.
+The use of the Zero-Tier VPN had been tested in environments with strict firewall policies (e.g. University networks) and had operated as expected.
 It appears that the school firewalls were locked down much more than anticipated.
 
 This meant that SynergyNet could not operate when connected to the Zero-Tier VPN when connected through the schools’ networks.
 However, the tablets functioned with no problems at both locations.
 
 Adding exceptions to the firewalls would have allowed the connections to the VPN to function correctly but was not feasible.
-The IT administrators responsible for both schools were unavailable during the small time-scales of the study.
+The IT administrators responsible for both schools were unavailable during the small time-scales of the trial.
 This meant that an alternative method of connecting to the internet was required.
 
 An alternative method of connecting to the internet that would allow the table-top interfaces to circumvent the schools’ firewalls and connect to the VPN was sought.
@@ -253,31 +258,35 @@ These could be connected via USB to the two table-top and allowed them to connec
 Do to the remote locations of each school it was difficult to find decent coverage under a single network so the table-top interfaces at both sites connected to the internet through different 4G providers.
 This had no detrimental impact and allowed the instances of SynergyNet on both table-tops to interact quickly and with little data lost (failed transmissions of messages between the instances would result in flicked items never arriving on their target device).
 
-As the table-top interfaces were only to be used for the study and the app’s network usage is minimal, pay-as-you-go plans sufficed.
+As the table-top interfaces were only to be used for the trial and the app’s network usage is minimal, pay-as-you-go plans sufficed.
 (The app only sends data when first finding other instances of the app and when a content transfer occurs.
-The first time content is sent it is moved to the shared area on the network, after this all subsequent transfers point back to the same item in the shared area, treating it like a cache.) In addition to the study’s app remote desktop controlling software, VNC, was also briefly used to and ensure both tables were set up on each site correctly before the trial started.
+The first time content is sent it is moved to the shared area on the network, after this all subsequent transfers point back to the same item in the shared area, treating it like a cache.) In addition to the trial's app, remote desktop controlling software, VNC, was also briefly used to and ensure both tables were set up on each site correctly before the trial started.
 Again, the 4G pay-as-you go set up sufficed.
 
 A 4G connection may not be as secure as using the school network but data to and from the VPN was encrypted ensuring it would be secure (no sensitive or personal data was being transmitted between the tables so privacy of the messages being sent was not vital).
 The video conferencing tablets used the school networks which would have provided an adequately secure connection.
 
 
-\section{Pilot Study Outcomes} 
+\section{Trial Data} 
 
- % Stats on data collected; 4 sessions, avg 20 mins each, etc.
+With the trial complete the next step was to produce usable data to draw findings from.
+Te trial consisted of four sessions, each taking an average of 20 minutes.
+Throughout these sessions a wealth of data was collected in the form of recordings.
+These recordings were annotated and coded in a defensible manner to produce quantitive data.
+This quantitive data could then be used alongside quanlatitive information, like observations made on the recordings, to produce the findings for the trial.
  
 \subsection{Data Collection}
 
-To collect data during the study screen-recording software was used.
+To collect data during the trial screen-recording software was used.
 This software was installed on both tablets allowing both sides of the video conferencing software used for communication between the groups to be recorded.
 In addition to this stand-alone cameras were used at both locations to record in high detail interactions with and around the table-top interfaces.
 
-Unfortunately, because SynergyNet utilises OpenGL for its visual output, it is not possible to capture video from the screen without either a secondary device that the output is mirrored to (this is problematic to set-up on the table-top interfaces used as the display is integrated into the device and changing the visual output configuration is limited) or impacting on the performance of the device (which is not an acceptable occurrence as performance should be priority to ensure fewer barriers to intuitive interaction).
+Unfortunately, because SynergyNet utilises OpenGL for its visual output, it was not possible to capture video from the screen without either a secondary device that the output is mirrored to (this is problematic to set-up on the table-top interfaces used as the display is integrated into the device and changing the visual output configuration is limited) or impacting on the performance of the device (which is not an acceptable occurrence as performance should be priority to ensure fewer barriers to intuitive interaction).
 
 \subsection{Data Analysis}
 
-With the study now completed the next step is to collect meaningful data from the videos recorded.
-While qualitative information can be collected from this videos (and study orchestrator’s observations made during the study) the intention is to capture quantitative data to evaluate the use of network flick gestures between non-co-located interfaces for classroom activities.
+With the trial now completed the next step was to collect meaningful data from the videos recorded.
+While qualitative information can be collected from this videos (and trial orchestrator’s observations made during the trial) the intention was to capture quantitative data to evaluate the use of network flick gestures between non-co-located interfaces for classroom activities.
 
 \begin{figure}[h]
  \centering
@@ -288,27 +297,32 @@ While qualitative information can be collected from this videos (and study orche
 
 SynergyView~\cite{kyaw:2010} is a time-line analysis tool where multiple videos can be annotated together over time with each annotation being tagged with a wealth of information (such as the subjects in the video they relate to or a type of recurring event seen in the trial).
 Information on these annotations, such as their frequency, total times and average times can then be exported in a crosstab format for analysis.
-The intention is to use SynergyView to annotate the videos from both groups in the study together (once synced).
-As multiple sessions took place during the study where different groups of students participated there will be several sets of videos to annotate together.
-The resulting crosstabs of information relating each of the sessions can then be collated and analysed as one large data-source.
 
-This quantitative data, in addition to other more qualitative observations made during the sessions and from the videos, should provide some insights into the use osf this study’s configuration of technologies in the classroom.
+The intention was to use SynergyView to annotate the videos from both groups in the trial session together (once synced).
+As multiple sessions took place during the study where different groups of students participated there were several sets of videos to annotate together.
+The resulting crosstabs of information relating each of the sessions could then be collated and analysed as one large dataset.
+
+This quantitative data, in addition to other more qualitative observations made during the sessions and from the videos, should provide some insights into the use osf the trial’s configuration of technologies in the classroom.
 
 
 \section{Lessons Learnt}
 
-% Applying findings and solutions going forward
+% Applying findings and solutions going forward relating to the case-study
 
 \subsection{Future Work}
 
-With the changes to the framework made as part of this study, SynergyNet is now well suited for use across the internet where a VPN is set up appropriately.
-This will allow for the tables used in this study to be re-deployed anywhere where there is an acceptable 3G/4G signal or with an alternate network connection where the network is configured appropriately.
-This will enable for further studies using the framework and the tables used in this study at separate sites.
-These further studies may involve following up any discoveries uncovered as part of this study’s data-analysis.
+With the changes to the framework made as part of the trial, SynergyNet is now well suited for use across the internet where a VPN is set up appropriately.
+This allows for the tables used in the trial to be re-deployed anywhere where there is an acceptable 3G/4G signal or with an alternate network connection where the network is configured appropriately.
+This will enable for further trials using the framework and the tables used in the trial at separate sites.
+These further trials may involve following up any discoveries uncovered as part of the trial’s data-analysis.
 
 \subsection{Conclusions}
 
 % Summary of Innovations and theoretical contributions
+% Case Study showed these findings
+% Deliverables from case study (practical advice for network flick set up, adapting software that assumes a LAN, quick set up of trials in school - 4G secure for the trial but maybe not for others)
+% Results of the trial to be published in the future.
+
 
 \bibliographystyle{ieeetr}
 \bibliography{jors2016}
