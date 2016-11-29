@@ -10,27 +10,26 @@
 
 
 % title
-\title{Facilitating Collaborative Learning Between Remote Sites}
+\title{Facilitating Collaborative Learning Between Remote Sites Using Large Multi-Touch Devices}
 
 % names
 \author[1]{James McNaughton}
 \author[2]{Tom Crick}
 \author[3]{Andrew Joyce-Gibbons}
-% \author[4]{}
+\author[4]{Gary Beauchamp}
 % \author[5]{}
 % affiliation
-\affil[1 \& 3]{ School of Education, Durham University, UK}
+\affil[1,3]{School of Education, Durham University, UK}
 \affil[2]{Department of Computing \& Information Systems, Cardiff
   Metropolitan University, UK}
 % \affil[3]{}
-% \affil[4]{}
+\affil[4]{School of Education, Cardiff Metropolitan University, UK}
 % \affil[5]{}
 % emails
 \affil[1]{\protect\url{j.a.mcnaughton@durham.ac.uk}}
 \affil[2]{\protect\url{tcrick@cardiffmet.ac.uk}}
 \affil[3]{\protect\url{andrew.joyce-gibbons@durham.ac.uk}}
-% \affil[3]{\protect\url{}}
-% \affil[4]{\protect\url{}}
+\affil[4]{\protect\url{gbeauchamp@cardiffmet.ac.uk}}
 % \affil[5]{\protect\url{}}
 
 \renewcommand\Authands{ and }
@@ -41,81 +40,67 @@
 \begin{document}
 \maketitle
 
-
+% may need to tweak this depending on the chosen journal location!
 \begin{abstract}
-This is a case-study concerning the technical implications of a research trial in which large touch-screen interfaces were used to facilitate collaborative education between students at separate locations.
-An app for supporting a collaborative classroom activity was created for the trial which allowed students at either location to transfer materials to the students at the other via a `flick' gesture.
-The execution of the trial required several novel innovations to overcome shortcomings with the app's supporting framework and the technologies used which this case-study focuses on.
-The case-study also details how software was used to provide a thorough and defensible approach to collation of data relating to the trial.
+This paper presents a technical case study and associated research software/hardware underpinning an educational research trial in which large touch-screen interfaces were used to facilitate collaborative interactions between primary school students at separate locations.
+As part of the study, an application for supporting a collaborative classroom activity was created for the trial which allowed students at either location to transfer resources to the students at the other via a `flick' gesture.
+The experiment required several novel innovations to overcome shortcomings with the application's supporting framework and the technologies used; we also detail how software was used to provide a thorough and robust approach to collation of data relating to the trial, from a research software viewpoint.
 \end{abstract}
 
 \section{Introduction}
 
-Large touch screen interfaces offer many opportunities for collaboration between co-located learners.
-Not just when the interface is shared but when two or more co-located interfaces are networked together to allow for the transfer of materials between them~\cite{kharrufa:2013,kreitmayer:2013}.
-As well as presenting enticing pedagogical opportunities, the successful integration of multi-touch tables into viable computer supported collaborative learning activities presents major challenges both technically and for teacher orchestration~\cite{dillenbourg:2011}. 
+***{\emph{TC: This feels like it starts far too deep -- should be write something more high-level intro here about the use of technology in education, evolving policy? We get right into it straight away...!}}***
 
-This study proceeds from the view that collaborative small group learning activities have the potential to lead to considerable learning gains for the participants, more so than activities they completed individually~\cite{odonnell:2013,barron:2008}.
+Large touch screen interfaces offer many opportunities for collaboration between co-located learners; not only when the interface is shared but when two or more co-located interfaces are networked together to allow for the transfer of materials between them~\cite{kharrufa:2013,kreitmayer:2013}.
+As well as presenting valuable pedagogical opportunities, the successful integration of multi-touch tables into usable computer-supported collaborative learning (CSCL) activities presents major challenges both technically and for teacher orchestration~\cite{dillenbourg:2011}. 
+
+This study starts from the viewpoint that collaborative small group learning activities have the potential to lead to substantial learning gains for the participants, more so than activities they completed individually~\cite{odonnell:2013,barron:2008}.
 There is a clear role for technology to play in supporting this collaboration, enabling configurations for group work and types of task which are not otherwise possible.
-Computer supported collaborative learning theory and research emphasises the role of technology in supporting learner participation, knowledge acquisition (information) and knowledge creation (knowledge objects and social practices)~\cite{lipponen:2004}.
-Much CSCL research emphasises the importance of face to face interaction and the design of tasks and optimising the participation of learners~\cite{stahl:2014}.
+CSCL theory and research emphasises the role of technology in supporting learner participation, knowledge acquisition (information) and knowledge creation (knowledge objects and social practices)~\cite{lipponen:2004}.
+Much of the CSCL research base emphasises the importance of face to face interaction and the design of tasks and optimising the participation of learners~\cite{stahl:2014}.
 
-The growing interest in face to face collaboration by learners engaged in mutual negotiation of meaning (both procedural and factual) inspired the creation of the SynergyNet project.
-An EPSRC/ESRC funded research project, researchers on the SynergyNet project identified important technical and pedagogical challenges which they sought to supply~\cite{higgins-et-al:2012}.
-Important technical challenges included the development of teacher orchestration tools which enabled seamless transition between individual spaces, group spaces and interactive whiteboards.
-These were respectively termed the private, shared and public spaces in the classroom by Dillenbourg and Evans~\cite{dillenbourg:2011}.
-They also identified the potential for a group to share information with other groups, building on the work of Everitt and colleagues~\cite{everitt:2006}.
-However, in this case the mechanism developed did not involve sharing between personal devices such as computers and a multi-touch table.
-Rather, SynergyNet developed tools to allow sharing seamlessly between tables~\cite{hatch:2011b}.
+The growing interest in face-to-face collaboration by learners engaged in mutual negotiation of meaning (both procedural and factual) inspired the creation of the SynergyNet project\footnote{\url{https://community.dur.ac.uk/tel.lab/synergynet/}} at Durham University, an EPSRC/ESRC-funded research project to identify important technical and pedagogical challenges in the CSCL domain~\cite{higgins-et-al:2012}.
+Important technical challenges included the development of teacher orchestration tools which enabled seamless transition between individual spaces, group spaces and interactive whiteboards; these were respectively termed the private, shared and public spaces in the classroom by Dillenbourg and Evans~\cite{dillenbourg:2011}.
+They also identified the potential for a group to share information with other groups, building on the work of Everitt et al.~\cite{everitt:2006}.
+However, in this case the mechanism developed did not involve sharing between personal devices such as computers and a multi-touch table; rather, SynergyNet developed tools to allow sharing seamlessly between tables~\cite{hatch:2011b}.
 
-Pedagogically, SynergyNet studies focused on children 10-11 years old, working in collaborative groups nested within a lab-classroom.
+Pedagogically, SynergyNet studies focused on schoolchildren aged 10-11 years old, working in collaborative groups nested within a lab-classroom.
 Data was collected on each group and each table as tasks were completed simultaneously.
 Data was also collected on the arrangement of the whole class and the teachers’ behaviour whilst supporting the activity.
 Studies showed that in tasks completed using multi-touch tables compared to tasks completed using paper-based equivalents, learners showed better uptake of ideas~\cite{mercier:2015}, showed evidence of more sophisticated reasoning  and differences in the amount of time spent in procedural rather than problem-focused talk~\cite{higgins-et-al:2012} in the multi-touch condition compared with the paper-based condition.
 Further studies highlighted the importance of the division of roles and showed different patterns of organisational and intellectual leadership in groups using mutli-touch tables~\cite{mercier2014d}, the importance of classroom layout for task completion~\cite{mercier:2014c}, the differences in teacher decision making process when shifting from group to whole-class dialogue~\cite{Joyce-Gibbons:2016}, the development of adaptive expertise among group members~\cite{mercier:2013} and the affordances of the tables to structure representations of reasoning processes~\cite{mercier:2014b}.
 
-The principle limitation of the SynergyNet study was the fact that research was only ever conducted in the lab-classroom rather than in a real-world school environment.
+The principal limitation of the original SynergyNet study was the fact that research was only ever conducted in the lab-classroom rather than in a real-world school environment, adapting to robust teacher and pupil use and also dealing with the technical challenges of the school's infrastructure.
 This is one of the chief priorities of the ongoing research agenda, to bring the tables into authentic classroom settings.
 
 Previous studies have been concerned with how the use of multiple large touch screen interfaces impacts on collaborative education in single environments, i.e. Individual classrooms~\cite{mohammed:2012,kreitmayer:2013,mercier:2015}.
-However, with the opportunities afforded by large networks, such as the internet, for collaboration in education across multiple locations~\cite{daradoumis:2000,mcconnell:2012}, the limitations of co-located interfaces become much more apparent.
-One of the key advantages of collaborative education across multiple locations is that it allows students with a potentially much wider range of backgrounds and skills to work together~\cite{kizilcec:2013}.
-
-This work details the work done to support a trial that was designed around investigating the impact of applying the use of large touch screen interfaces to multiple separate locations, specifically UK Key Stage 2 classrooms, on collaborative education.
+One of the key advantages of collaborative education across multiple locations is that it allows students with a potentially diverse range of knowledge, backgrounds and skills to work together~\cite{kizilcec:2013}.
+However, with the opportunities afforded by large networks, both open and closed, for collaboration in education across multiple locations~\cite{daradoumis:2000,mcconnell:2012}, the limitations of co-located interfaces becomes much more apparent.
 
 The use of a touch screen interface offers the opportunity for many novel gestures to intuitively instigate specific actions which can be beneficial for younger users~\cite{kim:2007,wu:2003,rick:2009}.
-One such gesture is the flick motion~\cite{reetz-et-al:2006} which is typically used for the movement of materials about an environment with minimal effort.
-This gesture benefits collaboration greatly, allowing users to transfer materials to each other without needing to enter each other's interaction space.
- 
-It is possible that the flick gesture could be used, not only for passing content between users on the same interface, but for passing materials to users on remote interfaces.
-The trial built on this possibility and applied it to the transferral of materials between non-co-located locations.
+One such gesture is the `flick' motion~\cite{reetz-et-al:2006}, which is typically used for the movement of materials about an environment with minimal effort.
+This gesture can aid collaboration, allowing users to transfer materials to each other without needing to enter each other's interaction space.
+ It is possible that the flick gesture could be used, not only for passing content between users on the same interface, but for passing materials to users on remote interfaces.
+% The trial built on this possibility and applied it to the transferral of materials between non-co-located locations.
 
-This paper presents a case-study of the technical aspects of implementing the research trial.
-The case-study examines how technology was used to meet the trial's design and focuses the technical challenges faced and overcome.
-The case-study also details how technology was used to manage the data resulting from the trial.
+This papers details the work done to support a trial that investigated the impact of using large touch screen interfaces in two separate locations, specifically with UK Key Stage 2 classrooms, on collaborative interactions and its impact on education. 
+Furthermore, this paper represents a valuable case study of the technical aspects of implementing a research trial using these multi-touch devices, examining how technology was used to collect the wide range of research data, as well as the technical challenges faced.
 
 
 \section{SynergyNet in Schools}
 
-As part of the SynergyNet project a software framework was developed to support applications designed for multi-touch interfaces.
-This SynergyNet framework allowed any content item supported produced in its supported apps to be moved and manipulated by users through common multi-touch gestures.
-
-The SynergyNet framework also supports communication between multiple interfaces via a network connection.
-This use of networked interfaces allows media-based content to be easily shared between multiple users.
-This allowed both intra- and inter-group collaboration in early SynergyNet studies~\cite{mercier:2014b}.
-The framework supports several different methods of transferring materials between instances of its apps.
+As part of the wider SynergyNet project, a software framework\footnote{Available on GitHub: \url{https://github.com/synergynet}} was developed to support applications designed for multi-touch interfaces.
+This SynergyNet framework allowed any item in its supported applications to be moved and manipulated by users through common multi-touch gestures, as well as supporting communication between multiple interfaces via a network connection.
+The framework supports several different methods of transferring materials between instances of its apps; the use of networked interfaces allowed media-based content to be easily shared between multiple users, allowing both intra- and inter-group collaboration as show in early SynergyNet studies~\cite{mercier:2014b}.
 This feature was presented as a capability of the teacher orchestration tools within the SynergyNet classroom which allowed the teacher to decide when to instigate the transferral of content~\cite{alagha-et-al:2010,mercier:2016}.
 An additional capability, called `Network Flick' was developed which allowed learners working at each table to ‘flick’ content (transfer content from one table to another by using a flicking gesture)~\cite{reetz-et-al:2006}.
-Whilst technically this was achievable in the lab-classroom, the co-location of all groups resulted in a study design which made the gesture’s capabilities pedagogically redundant.
+Whilst technically this was achievable in the lab-classroom, the co-location of all groups resulted in a study design which made the gesture’s capabilities pedagogically ineffective.
 
-Recent research building on the outcomes of the SynergyNet project has focused on developing the use of multi-touch tables for group work in multiple schools.
-This has resulted in the network flick gesture of the framework now having a pedagogical purpose.
-The project this research formed part of has entailed working with two schools which are geographically distant in the UK (approximately 300 miles apart), one near Durham City in England and the other near Caerphilly in Wales.
-Despite their distance, the areas share a common industrial heritage.
-Specifically they were at the heart of the coal mining industry which powered the industrial revolution.
-Latterly both areas have experienced economic trauma with mine closures and de-industrialisation.
-The impact on the children living in former mining communities has led to a dislocation with their environment as they grow up with little or no first-hand knowledge of mining.
-Both participating schools reported that learners in their schools were aware of mining as a ‘heritage’ activity but did not relate it to their lives now or consider it relevant to people of their age.
+Recent research building on the outcomes of the SynergyNet project has focused on developing the use of multi-touch tables for group work in multiple schools, resulting in the network flick gesture of the framework now having a pedagogical grounding and purpose.
+The project this research forms part of has resulting in the collaboration with two schools which are geographically distant in the UK (approximately 300 miles apart) -- one near the city of Durham in the north of England and the other near Caerphilly in south Wales.
+Despite their distance, the areas share an interesting common industrial heritage; specifically, they were at the heart of the coal mining industry which powered the industrial revolution.
+Latterly both areas have experienced significant post-industrial economic trauma with the closure of the mines and de-industrialisation.
+The impact on the children living in these former mining communities has led to a dislocation with their environment as they grow up with little or no first-hand knowledge of mining, although are aware of the cultural heritage of the community (as well as their families) -- both participating schools reported that learners in their schools were aware of mining as a ‘heritage’ activity but did not relate it to their lives now or consider it relevant to people of their age.
 
 The project sought to address this by establishing shared group work through the network flick gesture.
 The multi-touch tables were used to support children in collaborative group tasks previously intended to be completed by a single group assumed to be working in a single location.
