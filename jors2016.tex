@@ -49,7 +49,7 @@ The experiment required several novel innovations to overcome shortcomings with 
 
 \section{Introduction}
 
-***{\emph{TC: This feels like it starts far too deep -- should be write something more high-level intro here about the use of technology in education, evolving policy? We get right into it straight away...!}}***
+***{\emph{TC: This feels like it starts too deep, too early -- should be write something more high-level intro here about the use of technology in education, evolving policy? Otherwise, we get right into it straight away...!}}***
 
 Large touch screen interfaces offer many opportunities for collaboration between co-located learners; not only when the interface is shared but when two or more co-located interfaces are networked together to allow for the transfer of materials between them~\cite{kharrufa:2013,kreitmayer:2013}.
 As well as presenting valuable pedagogical opportunities, the successful integration of multi-touch tables into usable computer-supported collaborative learning (CSCL) activities presents major challenges both technically and for teacher orchestration~\cite{dillenbourg:2011}. 
@@ -87,7 +87,7 @@ This papers details the work done to support a trial that investigated the impac
 Furthermore, this paper represents a valuable case study of the technical aspects of implementing a research trial using these multi-touch devices, examining how technology was used to collect the wide range of research data, as well as the technical challenges faced.
 
 
-\section{SynergyNet in Schools}
+\section{SynergyNet}
 
 As part of the wider SynergyNet project, a software framework\footnote{Available on GitHub: \url{https://github.com/synergynet}} was developed to support applications designed for multi-touch interfaces.
 This SynergyNet framework allowed any item in its supported applications to be moved and manipulated by users through common multi-touch gestures, as well as supporting communication between multiple interfaces via a network connection.
@@ -105,6 +105,11 @@ The impact on the children living in these former mining communities has led to 
 The project sought to address this by establishing shared group work through the network flick gesture; the multi-touch tables were used to support children in collaborative group tasks previously intended to be completed by a single group assumed to be working in a single location.
 However, to try and increase the sense of common history and shared endeavour, the task was split with children in both locations being asked to work together to solve the problem, communicating via video conferencing software (visual and verbal) as well as by sharing data and resources via the network flick gesture.
 This paper primarily focuses on the technical challenges in the design and implementation of the framework from a research software engineering perspective, identifying key issues and constraints; future work, already in progress, will focus on the wider pedagogical and social implications of the study.
+
+
+\section{Technical Challenges}
+
+***{\emph{TC: Can we identify any more Technical Challenges? They're all largely network-related; anything to do with the user interface, HCI, weird artefacts with using the devices, etc?}}***
 
 \subsection{Network Flick}
 
@@ -133,7 +138,7 @@ The potential benefit of this approach, by having a simple method to move conten
 Though the network flick gesture has a number of potentially benefits, little use has previously been found for it; the feature has been present in the SynergyNet framework since its earliest versions, but very few apps utilise it.
 While some apps that require the transfer of materials between interfaces do support the gesture, most encourage users to use other, more traditional, methods of sharing contents (such as placing items in shared areas or through using a context menu).
 
-***{\emph{TC: Find some more citations for below...}}***
+***{\emph{TC to find some more citations for below...}}***
 
 Previous studies have investigated the human-computer interaction and affective computing aspects of the network flick gesture, but none of these have entailed its use in a classroom environment.
 Typically, classroom-based studies with SynergyNet have utilised a remote teacher interface to orchestrate the transferral of content~\cite{joycegibbons:2016}.
@@ -154,28 +159,70 @@ The network flick gesture itself makes an assumption about its use which results
 However, this knowledge can also be made available to users even when their target interface is in a remote location.
 The implications of not directly seeing the target interface when performing a network flick gesture are one of the key focuses of this new strand of work.
 
+%\subsection{Virtual Private Networking}
+\subsection{Networking}
+
+As many of SynergyNet’s networking features -- including the network flick gesture -- are dependent on the devices being on the same local network, it became apparent that the most time-effective approach would be to emulate a local area network across a wider network (i.e. the internet).
+
+This course of action was decided upon as supporting direct communication across the internet would have required several of the framework’s features to be totally redeveloped which was not feasible in the time-frame of the study (as well as issues of approaching the end of the academic year where classes would have the availability to participate).
+After investigation, the most effective way to emulate a LAN was to utilise a virtual private network (VPN), allowing many of the features of a local network that SynergyNet relies on (such as shared folders), whilst still communicating across the wider internet.
+
+% removed citation~\cite{zerotier:2016}
+Though many VPN solutions are available, Zero-Tier\footnote{\url{https://www.zerotier.com}} was selected to provide network virtualisation services.
+This low-cost VPN solution is not a typical VPN, but fulfilled all the criteria needed to support the majority of SynergyNet’s networking features over the internet.
+As only a small number of machines required to be connected to the same network in the trial (i.e. two; one touch-screen table-top interface for each site; the tablets used in the trial for the video conferencing did not need to be on the same network as the table-top interfaces and could just function as-is over the internet) it was not necessary to use feature-rich VPNs; though Zero-Tier may not be as secure as other VPN options, the trial did not involve any private data being transmitted between the two sites.
+
+It was originally intended that all devices used in the trial could be connected to the internet via the schools' own network infrastructure (both the tablets and table-top interfaces are capable of using wireless connections).
+However, during preparation for the trial it was discovered that the firewalls at both of the schools were explicitly blocking outbound VPN traffic relating to Zero-Tier.
+The use of the Zero-Tier VPN had been tested in environments with strict firewall policies (e.g. University networks) and had operated as expected; however, it appears that the school firewalls were locked down much more than anticipated, with extremely limited outbound connections allowed through the firewall.
+This meant that SynergyNet could not operate when connected to the Zero-Tier VPN when connected through the schools’ networks.
+Whilst adding exceptions to the firewalls would have allowed the VPN connections to function correctly, this was not feasible due to administrative issues with approval via the school and local education authority; therefore an alternative method of connecting to the internet was required.
+
+\subsection{Mobile Connectivity}
+
+Due to permission issues with the schools' own network infrastructure, an alternative method of connecting to the internet that would allow the table-top interfaces to function was identified using pay-as-you go 4G mobile ``dongles''.
+These could be connected via USB to the two table-tops to allow them to connect to the internet through a relatively fast mobile connection.
+However, do to the remote locations of each school, it was difficult to find decent coverage using a single mobile network, so the interfaces at both sites were connected to the internet through two different 4G providers.
+This had no noticeable impact or latency on the connection and allowed the instances of SynergyNet on both table-tops to interact quickly and with minimal data loss (for example, failed transmissions of messages between the instances would result in flicked items never arriving on their target device).
+% As the table-top interfaces were only to be used for the trial and the app's network usage is minimal, pay-as-you-go plans sufficed.
+The app only sends data when first finding other instances of the app and when a content transfer occurs; the first time any content is sent it is moved to the shared area on the network; afterwards, all subsequent transfers point back to the same item in the shared area, treating it like a cache.
+In addition to the trial's app, remote desktop controlling software, VNC, was also briefly used to and ensure both tables were set up on each site correctly before the trial started.
+
+A 4G connection may not be as secure as using the school network but data to and from the VPN was end-to-end encrypted ensuring it would be secure; furthermore, no sensitive or personal data was being transmitted between the tables.
+% The video conferencing tablets used the school networks which would have provided an adequately secure connection.
+
+\subsection{Multi-casting}
+
+SynergyNet up until now had used multicast service discovery as a method of finding other running instances of the framework on a network.
+However, many VPNs do not support the User Datagram Protocol (UDP) that SynergyNet employs.
+Thus to accommodate this VPN constraint, the framework was modified to work purely through the more widely supported Transmission Control Protocol (TCP).
+This change meant that SynergyNet could no longer automatically detect other instances; at least one instance would need to be informed of the IP address of the other instance.
+To support this a user interface was developed which allowed for the user to allocate participating device's IPs on the network.
+This update was initially a change at the app level but has since been integrated into the framework so that all apps on the latest version of SynergyNet~\cite{hatch:2011} can work across VPNs easier.
+
 \subsection{Other Technical Considerations}
 
 Both the design and the technical underpinnings of the SynergyNet framework and its apps been limited by the assumption of use across only co-located interfaces.
 The use of single environments in the past meant that the framework was always deployed across a single Local Area Network (LAN) in all studies; as there was no need previously for the framework to be able to work across anything beyond a LAN many of the features are not capable of functioning across the wider internet.
 
-***{\emph{TC: Fix references here...}}***
-
+% remove refs: ~\cite{igniterealtime:2016} and ~\cite{hazelcast:2016} 
 Despite the intention of being used solely across LANs in the past a large amount of the framework's networking capability was built in such a way that it could easily function across the internet.
-The use of third party libraries such as OpenFire~\cite{igniterealtime:2016} and Hazelcast~\cite{hazelcast:2016} mean that the framework can use several different protocols across wider networks for communicating messages to each other.
+The use of third party libraries such as OpenFire\footnote{\url{https://www.igniterealtime.org/projects/openfire/}} (a real time collaboration (RTC) server that uses the widely adopted open protocol for instant messaging, XMPP/Jabber) and Hazelcast\footnote{\url{https://hazelcast.org/}} (an open source in-memory data grid based on Java for simplified distributed computing) mean that the framework can use several different protocols across wider networks for communicating messages to each other.
 
 However, there are some network features that are solely limited to LAN; an example of this is how media content is transferred between instances of the framework.
 The framework uses a shared network location as a form of cache, which was beneficial in the past as it was simple to implement and gave teachers a single location to collect the files used in a lesson for use in future lessons.
 The secure use of a shared network location across a wider network, such as the internet, is inadvisable without precautions due to data security and latency of such a technique.
 It was therefore a requirement that some development work took place prior to the trial taking place to allow the framework, or at least the app used, to function over the internet as the two locations used would not be able to share a typical LAN.
 
+\section{Example SynergyNet Experiment: Two UK Primary Schools}
 
-\section{Trial Design}
-
-***{\emph{TC: Are we providing a methodology here, or an overview to the approach to aid understanding of the technical aspects for this paper?}}***
+***{\emph{TC: Are we aiming to provide a methodology here, or an overview to the approach to aid understanding of the technical aspects for this paper?}}***
 
 For this trial, two groups of UK Key Stage 2 students (aged 9-10 years old) at separate locations were encouraged to work together on a classroom activity.
 As previously mentioned, one group was situated in a school in the north-east of England and the other in a school in South Wales.
+It was decided that the trial should take place near to the end of the academic year (summer term) to cause as little disruption to the teaching schedule as possible.
+The design of the trial was built on previous SynergyNet studies which meant that a lot of the preparation was already in place (i.e. the hardware, the supporting software framework and the tasks to be carried out).
+However, previous SynergyNet studies all took place in a single classroom environment, the trial's use of multiple locations meant that there were several new challenges in the set up to overcome during this short lead in time.
 Each group was allocated a large touch-screen table-top device (Samsung SUR40s) to work together on the collaborative activity; the landscape nature of the interfaces was chosen to allow multiple students to work around the devices at the same time.
 The two devices were networked together to share content between them, specifically through the network flick gesture.
 To allow the teams to communicate and to give them a direction to focus their flick gestures towards, a tablet was positioned by the tables along one side at both locations, using video-conferencing software (Skype) to allow the teams to see each other and communicate verbally.
@@ -194,11 +241,11 @@ With the virtual distance between the tables set to be as small as possible the 
 % The positioning of the tables was set through configuration.
 % Other changes to make the framework ready for the trial required some new developments.
 
-\subsection{Flick Mysteries}
+%\subsection{Flick Mysteries}
 
-***{\emph{TC: Do we need to explain this a bit more? Maybe not...}}***
+***{\emph{TC: Do we need to explain this a bit more? (maybe not...)}}***
 
-It was decided that the task to be collaborated on in the trial was Mysteries; a classroom activity where students use a selection of clues, such as snippets of text and images, to solve a problem or come to a conclusion about an open question; this task has been used in several previous studies using SynergyNet~\cite{mercier:2013,mercier:2014,mercier:2015}.
+The selected collaboration task for this trial was {\emph{Mysteries}}; a classroom activity where students use a selection of clues, such as snippets of text and images, to solve a problem or come to a conclusion about an open question; this task has been used in several previous SynergyNet studies~\cite{mercier:2013,mercier:2014,mercier:2015}.
 
 \begin{figure}[h]
  \centering
@@ -207,88 +254,27 @@ It was decided that the task to be collaborated on in the trial was Mysteries; a
    \label{fig:FlickMysteryExample}
 \end{figure}
 
-Though mysteries is an existing task supported by several apps for the SynergyNet framework, none of them utilise the network flick gesture.
-This required the creation of a new app which would manage the loading of the materials in a dynamic way (i.e. text snippets from a simple XML file and media from any other files in a folder -- though video and audio clips are supported by the app only images were used in the trial alongside the text snippets to reduce potential confounding factors) and allow them to be transferred through the network gesture.
+Though {\emph{Mysteries}} is an existing task supported by several apps for the SynergyNet framework, none of them utilise the network flick gesture.
+This required the creation of a new app which would manage the loading of the materials in a dynamic way (i.e. text snippets from a simple XML file and media from any other files in a folder, although video and audio clips are supported by the app only images were used in the trial alongside the text snippets to reduce potential confounding factors) and allow them to be transferred through the network gesture.
 The dynamic content system allowed for the app to be easily configured so that each site would have a different selection of clues for each mysteries task, forcing them to share content with the students at the remote location.
-Figure~\ref{fig:FlickMysteryExample} shows the app built for the trial with content relevant to the task dynamically-generated from an XML file ready for transferral through the network flick mechanism.
-
-\subsection{Technical Challenges}
-
-It was decided that the trial should take place near to the end of the academic year to cause as little disruption to the teaching schedule as possible.
-The trial was designed close to the end of the summer term leaving little time for set up.
-The design of the trial was built on previous SynergyNet studies which meant that a lot of the preparation was already in place (i.e. the hardware, the supporting software framework and the tasks to be carried out).
-However, previous SynergyNet studies all took place in a single classroom environment, the trial's use of multiple locations meant that there were several new challenges in the set up to overcome during this short lead in time.
-
-\subsubsection{Virtual Private Networks}
-
-As many of SynergyNet’s networking features, including the network flick gesture, are dependent on the devices running instances of the framework being on a local network it became apparent that the most time-effective approach would be to emulate a local area network across a wider network (i.e. the internet).
-
-This course of action was decided upon as supporting direct communication across the internet would have required several of the framework’s features to be totally redeveloped which was not feasible in the time-frame of the trial (imposed by the upcoming period near the end of the academic year where classes would have the availability to participate).
-
-It became apparent after some investigation that the best way to emulate a LAN would be to utilise a VPN as this would allow many of the features of a local network that SynergyNet relies on (such as shared folders) to be easily emulated whilst still communicating across the internet.
-
-Though many VPN solutions are available, Zero-Tier was selected~\cite{zerotier:2016}.
-This VPN solution is not a typical VPN but fulfilled all the criteria needed to support the majority of SynergyNet’s networking features over the internet.
-
-As only a small number of machines required to be connected to the same network in the trial (i.e. two; one touch-screen table-top interface for each site – the tablets used in the trial for the video conferencing did not need to be on the same network as the table-top interfaces and could just function as-is over the internet) investing time and money in any more feature-rich VPNs would have been counter-productive.
-Though Zero-Tier may not be as secure as other VPN options the trial did not involve any data being transmitted that required being kept private so this was not a concern.
-
-\subsubsection{Multi-casting}
-
-SynergyNet up until now had used multicast service discovery as a method of finding other running instances of the framework on a network.
-However, many VPNs do not support the User Datagram Protocol (UDP) that the form of multi-casting used by SynergyNet employs.
-To accommodate for the fact this the trial was to be carried out across a VPN, the framework was modified to work purely through the more widely supported Transmission Control Protocol (TCP).
-
-This change meant that SynergyNet could no longer automatically detect other instances.
-At least one instance would need to be informed of the IP address of the other instance.
-To support this a user interface was developed which allowed for the user to allocate participating device's IPs on the network.
-This update was initially a change at the app level but has since been integrated into the framework so that all apps on the latest version of SynergyNet~\cite{hatch:2011} can work across VPNs easier.
-
-\subsubsection{Firewalls}
-
-It was originally intended that all devices used in the trial could be connected to the internet via the schools' networks (both the tablets and table-top interfaces are capable of using wireless connections).
-However, during preparation for the trial it was discovered that the firewalls at both of the schools were blocking the traffic relating to Zero-Tier.
-The use of the Zero-Tier VPN had been tested in environments with strict firewall policies (e.g. University networks) and had operated as expected; however, it appears that the school firewalls were locked down much more than anticipated.
-This meant that SynergyNet could not operate when connected to the Zero-Tier VPN when connected through the schools’ networks; however, the tablets functioned with no problems at both locations.
-
-Adding exceptions to the firewalls would have allowed the connections to the VPN to function correctly but was not feasible.
-The IT administrators responsible for both schools were unavailable during the small time-scales of the trial.
-This meant that an alternative method of connecting to the internet was required.
-
-An alternative method of connecting to the internet that would allow the table-top interfaces to circumvent the schools’ firewalls and connect to the VPN was sought.
-Eventually the use of mobile dongles with 4G connections was decided on.
-These could be connected via USB to the two table-top and allowed them to connect to the internet through a relatively fast connection.
-Do to the remote locations of each school it was difficult to find decent coverage under a single network so the table-top interfaces at both sites connected to the internet through different 4G providers.
-This had no detrimental impact and allowed the instances of SynergyNet on both table-tops to interact quickly and with little data lost (failed transmissions of messages between the instances would result in flicked items never arriving on their target device).
-
-As the table-top interfaces were only to be used for the trial and the app's network usage is minimal, pay-as-you-go plans sufficed.
-(The app only sends data when first finding other instances of the app and when a content transfer occurs.
-The first time content is sent it is moved to the shared area on the network, after this all subsequent transfers point back to the same item in the shared area, treating it like a cache.) In addition to the trial's app, remote desktop controlling software, VNC, was also briefly used to and ensure both tables were set up on each site correctly before the trial started.
-Again, the 4G pay-as-you go set up sufficed.
-
-A 4G connection may not be as secure as using the school network but data to and from the VPN was encrypted ensuring it would be secure (no sensitive or personal data was being transmitted between the tables so privacy of the messages being sent was not vital).
-The video conferencing tablets used the school networks which would have provided an adequately secure connection.
+Figure~\ref{fig:FlickMysteryExample} shows the app built for the trial with content relevant to the task dynamically-generated from an XML file ready for transfer via the network flick mechanism.
 
 
-\section{Trial Data} 
+\section{SynergyNet Data} 
 
-With the trial complete the next step was to produce usable data to draw findings from.
-Te trial consisted of four sessions, each taking an average of 20 minutes.
-Throughout these sessions a wealth of data was collected in the form of recordings.
-These recordings were annotated and coded in a defensible manner to produce quantitative data.
-This quantitative data could then be used alongside quantitative information, like observations made on the recordings, to produce the findings for the trial.
+To collect relevant experimental data, the trial consisted of four sessions, each taking an average of 20 minutes.
+Throughout these sessions a wealth of data was collected in the form of recordings; these recordings were annotated and coded in a robust and consistent manner by the project team to provide quantitative data of the interactions.
+This quantitative data could then be used alongside quantitative information, like observations made on the recordings, to generate the findings for the trial.
  
-\subsection{Data Collection}
+%\subsection{Data Collection}
 
-To collect data during the trial, screen-recording software was used.
-This software was installed on both tablets allowing both sides of the video conferencing software used for communication between the groups to be recorded.
-In addition to this stand-alone cameras were used at both locations to record in high detail interactions with and around the table-top interfaces.
+Screen recording software was used to collect data during the experiment; this software was installed on both tablets allowing both sides of the video conferencing software used for communication between the groups to be recorded.
+In addition to this,stand-alone cameras were used at both locations to record in high-detail interactions with and around the table-top interfaces.
+Unfortunately, because SynergyNet uses OpenGL (a cross-language, cross-platform API for rendering 2D and 3D vector graphics) for its visual output, it was not possible to capture video easily from the screen for two main reasons: it is problematic if we wished to use a secondary device that the output is mirrored to, as the set-up on the table-top interfaces that used the display is integrated into the device and changing the visual output configuration is limited; also, it would impact on the performance of the device, which is not an acceptable occurrence as performance should be priority to ensure fewer barriers to intuitive interaction.
 
-Unfortunately, because SynergyNet utilises OpenGL for its visual output, it was not possible to capture video from the screen without either a secondary device that the output is mirrored to (this is problematic to set-up on the table-top interfaces used as the display is integrated into the device and changing the visual output configuration is limited) or impacting on the performance of the device (which is not an acceptable occurrence as performance should be priority to ensure fewer barriers to intuitive interaction).
+%\subsection{Data Collation}
 
-\subsection{Data Collation}
-
-With the trial now completed the next step was to collect meaningful data from the videos recorded.
+%With the trial now completed the next step was to collect meaningful data from the videos recorded.
 While qualitative information can be collected from this videos (and trial orchestrator's observations made during the trial) the intention was to capture quantitative data to evaluate the use of network flick gestures between non-co-located interfaces for classroom activities.
 
 \begin{figure}[h]
@@ -300,55 +286,46 @@ While qualitative information can be collected from this videos (and trial orche
 
 SynergyView~\cite{kyaw:2010} is a time-line analysis tool where multiple videos can be annotated together over time with each annotation being tagged with a wealth of information (such as the subjects in the video they relate to or a type of recurring event seen in the trial).
 Information on these annotations, such as their frequency, total times and average times can then be exported in a cross-tab format for analysis.
-
 The intention was to use SynergyView to annotate the videos from both groups in the trial session together (once synced).
 As multiple sessions took place during the study where different groups of students participated there were several sets of videos to annotate together.
 The resulting cross-tabs of information relating each of the sessions could then be collated and analysed as one large dataset.
-
-The tool allows for the exporting and importing of annotations made; during the data collation, several researchers worked together to annotate the videos.
-The ability to share annotations allowed for this to be collaborative effort made between sites. 
-
-This quantitative data, in addition to other more qualitative observations made during the sessions and from the videos, should provide some insights into the use of the trial's configuration of technologies in the classroom.
+The tool allows for the exporting and importing of annotations made during the data collation, thus several researchers worked together to annotate the videos; the ability to share annotations allowed for this to be collaborative effort made between sites. 
+This quantitative data, in addition to other more qualitative observations made during the sessions and from the videos, provide crucial insight into the use of the trial's configuration of technologies in the classroom.
 
 
-\section{Lessons Learnt}
+\section{Conclusions and Future Work}
 
 ***{\emph{TC: Lots of short sentences here; are all of these lessons learnt applicable to the technical outcomes of this paper? They are generally good/useful, but we need to hit the technical issues much harder here. I will need to work through this section again after Gary has had a go.}}***
 
-Analysis of the results from the trial are now underway and will be reported on in future research.
-However, there are already outcomes from the trial; the process of preparing, running and collecting data from the trail has produced several tangible deliverables.
-
-One such deliverable is the Flick Mysteries application for SynergyNet.
-This application is now available through the SynergyNet repository~\cite{hatch:2011} for any researcher who wishes to replicate the trial.
-The app is designed to make configuring its contents straightforward which will also allow for the creation of new trials based around different classroom tasks.
+% removed citation~\cite{hatch:2011}
+Analysis of the outcomes from the study, particularly the wider pedagogical and social implications, are now underway and will be reported on in future papers; however, the process of preparing, running and collecting data from the trail has produced several tangible deliverables.
+Though SynergyView has been used before in previous research this is the first time it has been documented as being used across multiple sites.
+Another deliverable is the Flick Mysteries application for SynergyNet; this application is now available through the SynergyNet repository\footnote{Available on GitHub: \url{https://github.com/synergynet}} for any researcher who wishes to replicate the trial.
+The app is designed to make configuration straightforward, as well as allowing for the creation of new trials based around different classroom tasks.
 
 The adaptation of the SynergyNet framework's networking features to work through a VPN is another tangible outcome of this work.
-This will allow the framework, and any of the applications it supports, to be used across multiple sites.
-This facilitates further research trials in collaboration between remote sites using natural user interfaces.
-Though the trial used a set of specific multi-touch table devices, the portability of the SynergyNet framework allows for it to be run on a range of different devices.
-This includes Windows tablets which are widely available.
-This affords the opportunity to deploy similar trials into a wide range of environments in the future with little reliance on the hardware available.
-Therefore, the challenges of getting equipment to, then setting it up at, multiple locations can be circumvented in future trials.
+This now allows the framework, and any of the applications it supports, to be used across multiple sites, facilitating further research trials in collaboration between remote sites using natural user interfaces.
+Though the trial used a set of specific multi-touch table devices, the portability of the SynergyNet framework allows for it to be run on a range of different devices, including Windows tablets which are widely available.
+This affords the opportunity to deploy similar trials into a wide range of environments in the future with little reliance on the bespoke and expensive hardware available.
+Furthermore, the challenges of getting equipment to, then setting it up at, multiple locations can be overcome in future studies.
 
-Also arising from the technical work done to execute the research trial were several approaches to setting up the required equipment in schools.
-The use of 3G and 4G network connections to avoid the difficulties of locked down school networks may prove to be useful in future studies but great caution should be exercised.
-In the trail documented no personal or sensitive data was sent through the network connection and all information was encrypted via the virtual private network.
-However, the use of a school's network which has been verified as secure is always preferable where feasible.
+Also arising from the technical work were several approaches to setting up the required equipment in schools, particularly around networking and connectivity.
+The use of 3G and 4G network connections to avoid the difficulties of locked-down school networks may prove to be useful in future studies but great caution should be exercised.
+In the study described above, no personal or sensitive data was sent through the network connection and all information was encrypted via the virtual private network.
+However, the use of a school's network which has been verified as secure is always preferable where feasible, providing improved connectivity and resilience.
 
-The data collation also provided several a tangible deliverable.
-The SynergyView tool was updated prior to the collation to remove several bugs and ensure it would work on a range of modern Operating Systems.
-Previously the tool had failed to work due to its dependence on a piece of third party software no longer supported in modern versions of Windows and Mac OS.
-The updated version of SynergyView is now available for any researcher who wishes to utilise it through its repository~\cite{kyaw:2010}.
+From a data collection perspective, the SynergyView tool was updated prior to the collation to remove several minor bugs and ensure it would work on a range of modern operating systems.
+Previously the tool had failed to work due to its dependence on third party software no longer supported in the most recent versions of Windows and Mac OS.
+The updated version of SynergyView is now available for any researcher who wishes to utilise it through the GitHub repository.
 
-Though SynergyView has been used before in previous research this is the first time it has been documented as being used across multiple sites.
-The researchers at the two separate institutions who carried out the trial (Durham University and Cardiff Metropolitan University) were able to share their work regularly which ensured duplication of effort was minimised throughout the video annotation process.
-This led to the quicker production of usable video annotations than would have otherwise be possible.
+% The researchers at the two separate institutions who carried out the trial (Durham University and Cardiff Metropolitan University) were able to share their work regularly which ensured duplication of effort was minimised throughout the video annotation process.
+% This led to the quicker production of usable video annotations than would have otherwise be possible.
 
-\subsection{Future Work}
+%\subsection{Future Work}
 
 ***{\emph{TC: We need to tail this more strongly to identify the key technical contributions, as well as linking to any emerging policy?}}***
 
-With the changes to the framework made as part of the trial, SynergyNet is now well suited for use across the internet where a VPN is set up appropriately.
+With the changes to the framework made as part of the trial, SynergyNet is now better suited for use across the internet where a VPN is set up appropriately.
 This allows for the tables used in the trial to be re-deployed anywhere where there is an acceptable 3G/4G signal or with an alternate network connection where the network is configured appropriately.
 This will enable for further trials using the framework and the tables used in the trial at separate sites.
 These further trials may involve following up any discoveries uncovered as part of the trial's data-analysis.
