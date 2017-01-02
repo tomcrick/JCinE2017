@@ -1,2 +1,2 @@
-# JORS2016
-Paper for the Journal of Open Research Software (JORS) for Durham SynergyNet project.
+# JCinE2017
+Paper for the Journal of Computers in Education for Durham SynergyNet collaboration.
