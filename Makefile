@@ -1,10 +1,10 @@
-targets = jors2016.pdf
+targets = jcine2017.pdf
 
 all: $(targets)
 
 pdflatex = pdflatex -interaction=errorstopmode -halt-on-error
 
-%.pdf: %.tex jors2016.bib
+%.pdf: jcine2017_fixedrefs.tex jcine2017.bib
 	$(pdflatex) $<
 	bibtex $*
 	$(pdflatex) $<
